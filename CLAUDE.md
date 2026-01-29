@@ -33,10 +33,14 @@ The root `.claude-plugin/marketplace.json` indexes all available plugins:
   "name": "marketplace-name",
   "version": "1.0.0",
   "description": "Marketplace description",
+  "owner": {
+    "name": "Your Name",
+    "email": "email@example.com"
+  },
   "plugins": [
     {
       "name": "plugin-name",
-      "path": "plugins/plugin-name",
+      "source": "./plugins/plugin-name",
       "description": "What this plugin does",
       "version": "1.0.0",
       "keywords": ["keyword1", "keyword2"]
@@ -44,6 +48,11 @@ The root `.claude-plugin/marketplace.json` indexes all available plugins:
   ]
 }
 ```
+
+**Note:** The `source` field supports:
+- Relative paths: `"./plugins/my-plugin"` (works when marketplace is added via Git)
+- GitHub: `{ "source": "github", "repo": "owner/repo", "ref": "v1.0.0" }`
+- Git URL: `{ "source": "url", "url": "https://gitlab.com/team/plugin.git" }`
 
 ## Plugin Development
 
