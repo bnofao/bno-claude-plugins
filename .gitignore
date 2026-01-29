@@ -1,0 +1,6 @@
+# Local settings (contains project-specific config)
+.claude/*.local.md
+
+# OS files
+.DS_Store
+Thumbs.db

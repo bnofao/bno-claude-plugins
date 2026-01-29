@@ -1,0 +1,18 @@
+{
+  "name": "bno-claude-plugins",
+  "version": "1.0.0",
+  "description": "A collection of Claude Code plugins for various workflows",
+  "author": {
+    "name": "Fawaz",
+    "email": "ajanifawaz@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "manager",
+      "path": "plugins/manager",
+      "description": "GitHub product management - PRDs, TRDs, epics, issues, and sprints",
+      "version": "2.0.0",
+      "keywords": ["github", "product-management", "issues", "epics", "prd", "trd", "sprints"]
+    }
+  ]
+}
