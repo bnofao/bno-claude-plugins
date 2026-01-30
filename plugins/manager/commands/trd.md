@@ -31,6 +31,22 @@ Manage technical requirements documents for this project.
 2. If action is "create":
    - Verify TRD doesn't already exist at `docs/planning/$2/trd.md`
    - If it exists, ask user to use "update" instead
+   - Check if brainstorm exists at `docs/planning/$2/brainstorm.md`:
+     - If brainstorm exists:
+       - Read the brainstorm content
+       - Ask user: "A brainstorm exists for this feature. Would you like to use it as context for the TRD?"
+       - If yes: extract technical insights to inform TRD sections using this mapping:
+         | Brainstorm Section | TRD Section |
+         |-------------------|-------------|
+         | Selected Approach | Architecture Overview |
+         | Risks & Assumptions | Security / Risks |
+         | Dependencies | Dependencies |
+         | Technical notes | Technical Constraints |
+       - If no: continue without using brainstorm
+     - If brainstorm doesn't exist:
+       - Ask user: "No brainstorm exists for this feature. Would you like to brainstorm first?"
+       - If yes: suggest running `/manager:brainstorm $2` and stop here
+       - If no: continue with normal TRD creation
    - Create directory `docs/planning/$2/` if it doesn't exist
    - Copy template to `docs/planning/$2/trd.md`
    - Replace `[Feature Name]` with formatted version of $2

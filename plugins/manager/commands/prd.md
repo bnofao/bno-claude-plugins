@@ -31,6 +31,25 @@ Manage product requirements documents for this project.
 2. If action is "create":
    - Verify PRD doesn't already exist at `docs/planning/$2/prd.md`
    - If it exists, ask user to use "update" instead
+   - Check if brainstorm exists at `docs/planning/$2/brainstorm.md`:
+     - If brainstorm exists:
+       - Read the brainstorm content
+       - Ask user: "A brainstorm exists for this feature. Would you like to use it as context for the PRD?"
+       - If yes: extract key insights to pre-fill PRD sections using this mapping:
+         | Brainstorm Section | PRD Section |
+         |-------------------|-------------|
+         | Problem Statement | Problem Statement |
+         | User Insights | User Experience context |
+         | Selected Approach | Overview / Features |
+         | In Scope (MVP) | Features P0 |
+         | Out of Scope | Non-Goals |
+         | Success Criteria | Success Metrics |
+         | Risks | Technical Constraints |
+       - If no: continue without using brainstorm
+     - If brainstorm doesn't exist:
+       - Ask user: "No brainstorm exists for this feature. Would you like to brainstorm first?"
+       - If yes: suggest running `/manager:brainstorm $2` and stop here
+       - If no: continue with normal PRD creation
    - Create directory `docs/planning/$2/` if it doesn't exist
    - Copy template to `docs/planning/$2/prd.md`
    - Replace `[Feature Name]` with formatted version of $2
