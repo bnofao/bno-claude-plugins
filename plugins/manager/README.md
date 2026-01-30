@@ -307,7 +307,7 @@ TRDs include technical specifications:
 
 ## Configuration
 
-Create `.claude/manager.local.md` in your project:
+Create `.claude/manager.local.md` in your project. The configuration is **automatically loaded at session start**.
 
 ```yaml
 ---
@@ -331,7 +331,33 @@ labels:
 ## Project-Specific Notes
 
 Add any project-specific instructions here.
+These notes will be included in the session context.
 ```
+
+### How Configuration Works
+
+The plugin uses a **SessionStart hook** (`hooks/load-config.sh`) that:
+
+1. Loads `.claude/manager.local.md` when Claude Code starts
+2. Parses YAML frontmatter for configuration values
+3. Exports environment variables for bash commands:
+   - `$MANAGER_REPO` - Repository (owner/repo)
+   - `$MANAGER_PRD_DIR` - PRD directory path
+   - `$MANAGER_DEFAULT_PROJECT` - Default project number
+   - `$MANAGER_PROJECT_OWNER` - Project owner
+4. Injects project notes into session context
+
+### Configuration Fields
+
+| Field | Required | Default | Description |
+|-------|----------|---------|-------------|
+| `repo` | No | auto-detect | GitHub repository in owner/repo format |
+| `prd_dir` | No | `docs/planning` | Base directory for PRD/TRD documents |
+| `default_project` | No | - | Default GitHub Project number |
+| `project_owner` | No | `@me` | Owner for `gh project` commands |
+| `labels` | No | - | Label mappings for issue types |
+
+**Important:** Add `.claude/*.local.md` to your `.gitignore` - configuration files are user-specific and should not be committed.
 
 ## Typical Workflow
 

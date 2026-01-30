@@ -1,0 +1,17 @@
+{
+  "description": "Manager plugin hooks for configuration loading and context injection",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/load-config.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

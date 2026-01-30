@@ -16,6 +16,7 @@ This is a Claude Code plugin (not a Node.js project). All functionality is defin
 - **Agents** (`agents/*.md`): Autonomous agents for complex multi-step workflows
 - **Skills** (`skills/*/SKILL.md`): Reusable patterns and best practices
 - **Templates** (`templates/*.md`): Document structure templates for PRDs, epics, and issues
+- **Hooks** (`hooks/`): Event-driven automation (SessionStart for config loading)
 
 Entry point: `.claude-plugin/plugin.json`
 
@@ -105,7 +106,7 @@ docs/planning/<prd-name>/
 
 ## Project Configuration
 
-Projects using this plugin create `.claude/manager.local.md` with YAML frontmatter:
+Projects using this plugin create `.claude/manager.local.md` with YAML frontmatter. The configuration is **automatically loaded at session start** via the SessionStart hook.
 
 ```yaml
 ---
@@ -117,7 +118,37 @@ labels:
   feature: ["type:feature"]
   priority: ["priority:high", "priority:medium", "priority:low"]
 ---
+
+## Project-Specific Notes
+
+Add any custom notes or instructions here. This content will be
+included in the session context.
 ```
+
+### Configuration Loading
+
+The `hooks/load-config.sh` hook runs automatically when Claude Code starts:
+
+1. Reads `.claude/manager.local.md` if it exists
+2. Parses YAML frontmatter for configuration values
+3. Exports environment variables for bash commands:
+   - `MANAGER_REPO` - Repository in owner/repo format
+   - `MANAGER_PRD_DIR` - Directory for PRD documents
+   - `MANAGER_DEFAULT_PROJECT` - Default GitHub Project number
+   - `MANAGER_PROJECT_OWNER` - Project owner (@me or organization)
+4. Injects configuration summary as session context
+
+### Configuration Fields
+
+| Field | Default | Description |
+|-------|---------|-------------|
+| `repo` | auto-detect | GitHub repository (owner/repo format) |
+| `prd_dir` | `docs/planning` | Base directory for PRD/TRD documents |
+| `default_project` | none | Default GitHub Project number |
+| `project_owner` | `@me` | Project owner for `gh project` commands |
+| `labels` | none | Label mappings for issue types |
+
+**Note:** Changes to configuration require restarting Claude Code to take effect.
 
 ## Typical Workflow
 

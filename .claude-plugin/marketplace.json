@@ -11,7 +11,7 @@
       "name": "manager",
       "source": "./plugins/manager",
       "description": "GitHub product management - PRDs, TRDs, epics, issues, and sprints",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "keywords": ["github", "product-management", "issues", "epics", "prd", "trd", "sprints"]
     }
   ]
